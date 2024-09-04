@@ -1,4 +1,4 @@
-/* Basic reset and global styles */
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,69 +6,75 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
+    background-color: #f7f8fc;
     color: #333;
+    padding: 20px;
 }
 
-/* Container to center content and add padding */
+/* Container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Header styling */
+/* Header */
 header {
     text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #ddd;
-}
-
-header h1 {
-    font-size: 2.5em;
-    color: #333;
-}
-
-/* Section styling */
-section {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 20px 0;
+    background-color: #007bff;
+    color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Form styling */
+.ge-header{
+text-align: center;
+
+}
+header h1 {
+    font-size: 2.5rem;
+}
+
+/* Form Styles */
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 form label {
+    font-size: 1rem;
+    color: #555;
+    display: block;
     margin-bottom: 5px;
-    font-weight: bold;
 }
 
-form input[type="text"] {
-    padding: 10px;
-    margin-bottom: 15px;
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="number"],
+form select {
     width: 100%;
-    max-width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 1rem;
 }
 
 form button {
+    width: 100%;
+    padding: 12px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 1em;
     border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -77,216 +83,145 @@ form button:hover {
     background-color: #0056b3;
 }
 
-/* QR Code Image Styling */
-#qr-code-img {
-    display: block;
-    margin: 20px auto;
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-/* QR Codes List Styling */
-#qr-codes-list {
+/* QR Code Display */
+#qr-codes-list,
+#all-qr-codes-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
 }
 
-#qr-codes-list div {
-    background: #fff;
-    padding: 10px;
+.qr-code-item {
+    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 200px;
+    padding: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-basis: calc(33.333% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-code-item img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.qr-code-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.qr-code-actions button,
+.qr-code-actions .view-button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     text-align: center;
 }
 
-#qr-codes-list img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-}
-
-#qr-codes-list button {
-    background-color: #dc3545;
+.qr-code-actions button {
+    background-color: #ff4d4d;
     color: #fff;
-    border: none;
-    padding: 5px 10px;
-    font-size: 0.9em;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-right: 10px;
 }
 
-#qr-codes-list button:hover {
-    background-color: #c82333;
+.qr-code-actions button:hover {
+    background-color: #cc0000;
 }
 
-#qr-codes-list a {
-    display: block;
-    margin-top: 10px;
-    color: #007bff;
+.qr-code-actions .view-button {
+    background-color: #007bff;
+    color: #fff;
     text-decoration: none;
 }
 
-#qr-codes-list a:hover {
-    text-decoration: underline;
-}
-
-/* User Data Section Styling */
-#user-data-section h2 {
-    font-size: 1.5em;
-    color: #007bff;
-}
-
-#user-data {
-    background-color: #fafafa;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 20px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-#user-data p {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #555;
-}
-
-#user-data p strong {
-    color: #333;
-}
-
-#registration-prompt {
-    padding: 10px;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    color: #721c24;
-}
-
-#registration-prompt a {
-    color: #721c24;
-    text-decoration: underline;
-}
-
-
-
-
-/* Registration Section Styling */
-#registration-section {
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 20px auto;
-}
-
-#registration-section h2 {
-    font-size: 1.8em;
-    color: #007bff;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#registration-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#registration-form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-#registration-form input[type="text"],
-#registration-form input[type="email"],
-#registration-form input[type="tel"] {
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1em;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#registration-form button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1.1em;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#registration-form button:hover {
+.qr-code-actions .view-button:hover {
     background-color: #0056b3;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
-    #registration-section {
-        padding: 20px;
-    }
-
-    #registration-section h2 {
-        font-size: 1.5em;
-    }
-
-    #registration-form input[type="text"],
-    #registration-form input[type="email"],
-    #registration-form input[type="tel"] {
-        font-size: 0.9em;
-    }
-
-    #registration-form button {
-        font-size: 1em;
-        padding: 10px;
+    .qr-code-item {
+        flex-basis: calc(50% - 20px);
     }
 }
 
+@media (max-width: 480px) {
+    .qr-code-item {
+        flex-basis: 100%;
+    }
+}
+/* User Data Display */
+#user-data {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
 
+#user-data p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
 
+#registration-prompt {
+    background-color: #ffecd1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 
+#registration-prompt p {
+    font-size: 1rem;
+    color: #333;
+}
 
-/* Media queries for responsiveness */
+#registration-prompt a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#registration-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .container {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    form {
         padding: 15px;
     }
 
+    #qr-codes-list div,
+    #all-qr-codes-list div {
+        flex-basis: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
     header h1 {
-        font-size: 2em;
+        font-size: 1.5rem;
     }
 
-    section h2 {
-        font-size: 1.5em;
-    }
-
-    form input[type="text"] {
-        font-size: 1em;
-    }
-
-    form button {
-        font-size: 1em;
+    form {
         padding: 10px;
     }
 
-    #user-data-section h2 {
-        font-size: 1.2em;
-    }
-
-    #user-data p {
-        font-size: 1em;
+    #qr-codes-list div,
+    #all-qr-codes-list div {
+        flex-basis: 100%;
     }
 }
