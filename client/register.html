@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User Data</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Register User Data</h1>
+        </header>
+        <section id="register-section">
+            <form id="register-form">
+                <input type="hidden" id="qrCodeId" name="qrCodeId">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required>
+                <button type="submit">Register</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);
+            const qrCodeId = params.get("qrCodeId");
+            document.getElementById("qrCodeId").value = qrCodeId;
+
+            document.getElementById("register-form").addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const phone = document.getElementById("phone").value;
+
+                try {
+                    const response = await fetch("/api/qr/register", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ qrCodeId, name, email, phone })
+                    });
+
+                    if (response.ok) {
+                        alert("Registration successful!");
+                        window.location.href = `/userData.html?qrCodeId=${qrCodeId}`;
+                    } else {
+                        alert("Registration failed. Please try again.");
+                    }
+                } catch (error) {
+                    console.error("Error registering user data:", error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
