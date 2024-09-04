@@ -1,31 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Management</title>
-    <link rel="stylesheet" href="styles/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Management</title>
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>QR Code Management</h1>
-        </header>
+  <div class="container">
+    <header>
+      <h1>QR Code Management</h1>
+    </header>
 
-        <section id="generate-section">
-            <h2>Generate QR Code</h2>
-            <form id="generate-form">
-                <button type="submit">Generate QR Code</button>
-            </form>
-            <img id="qr-code-img" src="" alt="" style="display: block; margin-top: 20px;">
-        </section>
+    <!-- QR Code Generation Section -->
+    <section id="generate-section">
+      <h2>Generate QR Code</h2>
+      <form id="generate-form">
+        <button type="submit">Generate QR Code</button>
+      </form>
+      <img id="qr-code-img" style="display: none" alt="Generated QR Code" />
+    </section>
 
-        <section id="qr-codes-section">
-            <h2>Generated QR Codes</h2>
-            <div id="qr-codes-list"></div>
-        </section>
-    </div>
+    <!-- QR Codes List Section -->
+    <section id="qr-codes-section">
+      <h2>Generated QR Codes</h2>
+      <div id="qr-codes-list"></div>
+    </section>
+  </div>
 
-    <script src="scripts/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Handle QR code generation
+      document.getElementById("generate-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          const response = await fetch("/api/qr/generate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await response.json();
+
+          if (data.qrCodeData) {
+            displayQRCode(data.qrCodeData, data.uniqueId);
+            loadQRCodes();
+          } else {
+            console.error("QR code data is undefined");
+          }
+        } catch (error) {
+          console.error("Error generating QR code:", error);
+        }
+      });
+
+      // Function to display the QR code
+      function displayQRCode(qrCodeData, uniqueId) {
+        const qrCodeImg = document.getElementById("qr-code-img");
+        if (qrCodeImg) {
+          qrCodeImg.src = qrCodeData;
+          qrCodeImg.alt = `QR Code for ID: ${uniqueId}`;
+          qrCodeImg.style.display = "block"; // Make sure it's visible
+        } else {
+          console.error("QR code image element not found");
+        }
+      }
+
+      // Load and display all QR codes
+      async function loadQRCodes() {
+        try {
+          const response = await fetch("/api/qr/list");
+          const qrCodes = await response.json();
+          const qrCodesList = document.getElementById("qr-codes-list");
+          qrCodesList.innerHTML = "";
+          qrCodes.forEach((qrCode) => {
+            const qrCodeElement = document.createElement("div");
+            qrCodeElement.innerHTML = `
+              <img src="${qrCode.qrCodeData}" alt="QR Code">
+              <button onclick="deleteQRCode('${qrCode._id}')">Delete</button>
+              <a href="/userData.html?qrCodeId=${qrCode.code}">View</a>
+            `;
+            qrCodesList.appendChild(qrCodeElement);
+          });
+        } catch (error) {
+          console.error("Error loading QR codes:", error);
+        }
+      }
+
+      // Delete a QR code
+      window.deleteQRCode = async function (id) {
+        try {
+          await fetch(`/api/qr/${id}`, {
+            method: "DELETE",
+          });
+          loadQRCodes();
+        } catch (error) {
+          console.error("Error deleting QR code:", error);
+        }
+      };
+
+      // Initial load
+      loadQRCodes();
+    });
+  </script>
 </body>
 </html>
