@@ -12,57 +12,88 @@
       <h1>QR Code Management</h1>
     </header>
 
-    <!-- QR Code Generation Section -->
     <section id="generate-section">
-      <h2>Generate QR Code</h2>
+      <h2 class="ge-header">Generate QR Codes</h2>
       <form id="generate-form">
-        <button type="submit">Generate QR Code</button>
+        <label for="mode">Mode:</label>
+        <select id="mode" name="mode" required>
+          <option value="single">Single QR Code</option>
+          <option value="multiple">Multiple QR Codes</option>
+        </select>
+
+        <div id="count-input-group" style="display: none;">
+          <label for="count">Number of QR Codes:</label>
+          <input type="number" id="count" name="count" min="1" />
+        </div>
+
+        <button type="submit">Generate QR Codes</button>
       </form>
-      <img id="qr-code-img" style="display: none" alt="Generated QR Code" />
+      <div id="qr-codes-list"></div>
     </section>
 
-    <!-- QR Codes List Section -->
     <section id="qr-codes-section">
-      <h2>Generated QR Codes</h2>
-      <div id="qr-codes-list"></div>
+      <h2>All Generated QR Codes</h2>
+      <div id="all-qr-codes-list"></div>
     </section>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      const modeSelect = document.getElementById('mode');
+      const countInputGroup = document.getElementById('count-input-group');
+      const countInput = document.getElementById('count');
+
+      // Handle mode change
+      modeSelect.addEventListener('change', function () {
+        if (this.value === 'multiple') {
+          countInputGroup.style.display = 'block';
+          countInput.required = true;
+        } else {
+          countInputGroup.style.display = 'none';
+          countInput.required = false;
+        }
+      });
+
       // Handle QR code generation
       document.getElementById("generate-form").addEventListener("submit", async (e) => {
         e.preventDefault();
+        const mode = modeSelect.value;
+        const count = mode === 'multiple' ? countInput.value : null;
+
         try {
           const response = await fetch("/api/qr/generate", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
+            body: JSON.stringify({ count }),
           });
-          const data = await response.json();
 
-          if (data.qrCodeData) {
-            displayQRCode(data.qrCodeData, data.uniqueId);
-            loadQRCodes();
+          const data = await response.json();
+          if (data.qrCodes && data.qrCodes.length > 0) {
+            displayQRCodes(data.qrCodes);
           } else {
             console.error("QR code data is undefined");
           }
         } catch (error) {
-          console.error("Error generating QR code:", error);
+          console.error("Error generating QR codes:", error);
         }
       });
 
-      // Function to display the QR code
-      function displayQRCode(qrCodeData, uniqueId) {
-        const qrCodeImg = document.getElementById("qr-code-img");
-        if (qrCodeImg) {
-          qrCodeImg.src = qrCodeData;
-          qrCodeImg.alt = `QR Code for ID: ${uniqueId}`;
-          qrCodeImg.style.display = "block"; // Make sure it's visible
-        } else {
-          console.error("QR code image element not found");
-        }
+      // Function to display the QR codes
+      function displayQRCodes(qrCodes) {
+        const qrCodesList = document.getElementById("qr-codes-list");
+        qrCodesList.innerHTML = ""; // Clear previous QR codes
+
+        qrCodes.forEach(qrCode => {
+          const qrCodeElement = document.createElement("div");
+          qrCodeElement.classList.add("qr-code-item");
+          qrCodeElement.innerHTML = `
+            <img src="${qrCode.qrCodeData}" alt="QR Code">
+            <p>Unique ID: ${qrCode.uniqueId}</p>
+          `;
+          qrCodesList.appendChild(qrCodeElement);
+        });
       }
 
       // Load and display all QR codes
@@ -70,16 +101,20 @@
         try {
           const response = await fetch("/api/qr/list");
           const qrCodes = await response.json();
-          const qrCodesList = document.getElementById("qr-codes-list");
-          qrCodesList.innerHTML = "";
+          const allQRCodesList = document.getElementById("all-qr-codes-list");
+          allQRCodesList.innerHTML = "";
+          
           qrCodes.forEach((qrCode) => {
             const qrCodeElement = document.createElement("div");
+            qrCodeElement.classList.add("qr-code-item");
             qrCodeElement.innerHTML = `
               <img src="${qrCode.qrCodeData}" alt="QR Code">
-              <button onclick="deleteQRCode('${qrCode._id}')">Delete</button>
-              <a href="/userData.html?qrCodeId=${qrCode.code}">View</a>
+              <div class="qr-code-actions">
+                <button onclick="deleteQRCode('${qrCode._id}')">Delete</button>
+                <a href="/userData.html?qrCodeId=${qrCode.code}" class="view-button">View</a>
+              </div>
             `;
-            qrCodesList.appendChild(qrCodeElement);
+            allQRCodesList.appendChild(qrCodeElement);
           });
         } catch (error) {
           console.error("Error loading QR codes:", error);
