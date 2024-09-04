@@ -1,151 +1,145 @@
-body {
-    font-family: Arial, sans-serif;
+/* Basic reset and global styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
 }
 
+/* Container to center content and add padding */
 .container {
-    width: 80%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/* Header styling */
 header {
     text-align: center;
     margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ddd;
 }
 
-h1 {
+header h1 {
     font-size: 2.5em;
-    margin: 0;
+    color: #333;
 }
 
-h2 {
-    font-size: 2em;
-    margin: 0;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #333;
-}
-
-#generate-section,
-#qr-codes-section {
+/* Section styling */
+section {
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Form styling */
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-label {
-    margin-bottom: 10px;
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-input[type="text"] {
+form input[type="text"] {
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     width: 100%;
     max-width: 300px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-button {
-    padding: 10px 20px;
+form button {
     background-color: #007bff;
     color: #fff;
     border: none;
+    padding: 10px 20px;
+    font-size: 1em;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
+form button:hover {
     background-color: #0056b3;
 }
 
+/* QR Code Image Styling */
+#qr-code-img {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* QR Codes List Styling */
 #qr-codes-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 #qr-codes-list div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    text-align: center;
 }
 
 #qr-codes-list img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 10px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
 }
 
 #qr-codes-list button {
-    margin-top: 10px;
     background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #qr-codes-list button:hover {
     background-color: #c82333;
 }
 
-
-
-
-
-/* styles.css */
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+#qr-codes-list a {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+#qr-codes-list a:hover {
+    text-decoration: underline;
 }
 
-header {
-    text-align: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #ddd;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-}
-
-#user-data-section {
-    padding: 20px;
-}
-
+/* User Data Section Styling */
 #user-data-section h2 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #007bff;
 }
 
 #user-data {
@@ -166,44 +160,133 @@ header h1 {
     color: #333;
 }
 
-button {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 20px;
-    cursor: pointer;
+#registration-prompt {
+    padding: 10px;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
     border-radius: 4px;
-    transition: background-color 0.3s;
+    color: #721c24;
 }
 
-button:hover {
+#registration-prompt a {
+    color: #721c24;
+    text-decoration: underline;
+}
+
+
+
+
+/* Registration Section Styling */
+#registration-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+#registration-section h2 {
+    font-size: 1.8em;
+    color: #007bff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#registration-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+#registration-form input[type="text"],
+#registration-form input[type="email"],
+#registration-form input[type="tel"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#registration-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#registration-form button:hover {
     background-color: #0056b3;
 }
 
-@media (max-width: 600px) {
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #registration-section {
+        padding: 20px;
+    }
+
+    #registration-section h2 {
+        font-size: 1.5em;
+    }
+
+    #registration-form input[type="text"],
+    #registration-form input[type="email"],
+    #registration-form input[type="tel"] {
+        font-size: 0.9em;
+    }
+
+    #registration-form button {
+        font-size: 1em;
+        padding: 10px;
+    }
+}
+
+
+
+
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
     .container {
         padding: 15px;
     }
 
     header h1 {
-        font-size: 20px;
+        font-size: 2em;
+    }
+
+    section h2 {
+        font-size: 1.5em;
+    }
+
+    form input[type="text"] {
+        font-size: 1em;
+    }
+
+    form button {
+        font-size: 1em;
+        padding: 10px;
     }
 
     #user-data-section h2 {
-        font-size: 18px;
+        font-size: 1.2em;
     }
 
     #user-data p {
-        font-size: 14px;
-    }
-
-    button {
-        font-size: 14px;
-        padding: 8px 16px;
+        font-size: 1em;
     }
 }

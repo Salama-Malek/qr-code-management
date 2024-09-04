@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,5 +59,81 @@
             });
         });
     </script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register QR Code</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Register QR Code</h1>
+    </header>
+
+    <section id="registration-section">
+      <h2>Enter Your Details</h2>
+      <form id="registration-form">
+        <input type="hidden" id="qr-code-id" name="qrCodeId" />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required />
+        <button type="submit">Register</button>
+      </form>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qrCodeId = urlParams.get("qrCodeId");
+
+        if (qrCodeId) {
+          document.getElementById("qr-code-id").value = qrCodeId;
+        } else {
+          console.error("QR Code ID is missing in the URL");
+          // Optionally redirect to a different page or show an error message
+        }
+
+        document.getElementById("registration-form").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const data = Object.fromEntries(formData.entries());
+
+          try {
+            const response = await fetch("/api/qr/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+              alert("Registration successful!");
+              // Optionally redirect to a confirmation page or back to the homepage
+              window.location.href = "/";
+            } else {
+              alert(`Error: ${result.message}`);
+            }
+          } catch (error) {
+            console.error("Error registering QR code:", error);
+            alert("An error occurred while registering the QR code.");
+          }
+        });
+      });
+    </script>
+  </div>
 </body>
 </html>
