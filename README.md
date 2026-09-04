@@ -98,3 +98,7 @@ No test suite is currently configured (`npm test` is a placeholder that exits wi
 | GET    | `/api/qr/:id`            | Get registered user data for a QR code        |
 | DELETE | `/api/qr/:id`            | Delete a QR code by its Mongo `_id`            |
 | GET    | `/api/qr/user-data`      | Serve the user data page                      |
+
+## License
+
+MIT. See [LICENSE](LICENSE).
